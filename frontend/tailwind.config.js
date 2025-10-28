@@ -8,14 +8,14 @@ export default {
     extend: {
       colors: {
         brand: '#10B981',
-        bg: '#000000',
-        surface: '#0F1419',
-        card: '#1A1F28',
-        cardHover: '#232931',
-        text: '#F9FAFB',
-        textMuted: '#9CA3AF',
-        border: '#374151',
-        borderLight: '#4B5563',
+        bg: '#0F172A',
+        surface: '#1E293B',
+        card: '#334155',
+        cardHover: '#475569',
+        text: '#F1F5F9',
+        textMuted: '#94A3B8',
+        border: '#475569',
+        borderLight: '#64748B',
         accent: {
           purple: '#A855F7',
           blue: '#3B82F6',
@@ -29,7 +29,7 @@ export default {
       },
       boxShadow: {
         'card': '0 1px 3px 0 rgba(0, 0, 0, 0.3)',
-        'card-hover': '0 4px 12px 0 rgba(0, 0, 0, 0.5)',
+        'card-hover': '0 4px 12px 0 rgba(0, 0, 0, 0.4)',
       },
     },
   },
