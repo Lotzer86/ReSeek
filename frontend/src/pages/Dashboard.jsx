@@ -4,22 +4,34 @@ import './Dashboard.css'
 
 function Dashboard() {
   const [events, setEvents] = useState([])
+  const [watchlist, setWatchlist] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetchEvents()
+    fetchData()
   }, [])
 
-  const fetchEvents = async () => {
+  const fetchData = async () => {
     try {
-      const response = await axios.get('/api/events/')
-      setEvents(response.data.events || [])
+      const [eventsRes, watchlistRes] = await Promise.all([
+        axios.get('/api/events/'),
+        axios.get('/api/watchlist/demo_user').catch(() => ({ data: { items: [] } }))
+      ])
+      setEvents(eventsRes.data.events || [])
+      setWatchlist(watchlistRes.data.items || [])
     } catch (error) {
-      console.error('Error fetching events:', error)
+      console.error('Error fetching data:', error)
     } finally {
       setLoading(false)
     }
   }
+
+  const watchlistCompanies = [
+    { ticker: 'AAPL', name: 'Apple Inc.' },
+    { ticker: 'MSFT', name: 'Microsoft Corporation' },
+    { ticker: 'GOOGL', name: 'Alphabet Inc.' },
+    { ticker: 'AMZN', name: 'Amazon.com Inc.' },
+  ]
 
   return (
     <div className="dashboard">
@@ -28,55 +40,97 @@ function Dashboard() {
         <p className="subtitle">AI-powered earnings call analysis</p>
       </div>
 
-      <div className="dashboard-grid">
-        <section className="card">
-          <h2>Live Right Now</h2>
-          <p className="empty-state">No live events at the moment</p>
-        </section>
-
-        <section className="card">
-          <h2>Latest Events</h2>
-          {loading ? (
-            <p className="loading">Loading...</p>
-          ) : events.length === 0 ? (
-            <div className="empty-state">
-              <p>No events yet</p>
-              <p className="hint">Events will appear here once transcripts are ingested</p>
+      <div className="dashboard-content">
+        <div className="dashboard-main">
+          <section className="card">
+            <div className="card-header">
+              <h2>Latest Events</h2>
             </div>
-          ) : (
-            <div className="event-list">
-              {events.slice(0, 5).map(event => (
-                <div key={event.id} className="event-item">
-                  <div className="event-icon">
-                    {event.ticker?.charAt(0) || '?'}
-                  </div>
-                  <div className="event-details">
-                    <div className="event-company">{event.company_name || event.ticker}</div>
-                    <div className="event-meta">
-                      {new Date(event.event_date).toLocaleDateString()} • {event.quarter}
-                    </div>
-                  </div>
-                  {event.has_summary && (
-                    <span className="status-badge">Summary Available</span>
-                  )}
+            <div className="card-body">
+              {loading ? (
+                <div className="loading">Loading...</div>
+              ) : events.length === 0 ? (
+                <div className="empty-state">
+                  <p>No events yet</p>
+                  <p className="hint">Events will appear here once transcripts are ingested</p>
                 </div>
-              ))}
+              ) : (
+                <div className="event-list">
+                  {events.slice(0, 6).map(event => (
+                    <div key={event.id} className="event-item">
+                      <div className="event-icon">
+                        {event.ticker?.charAt(0) || '?'}
+                      </div>
+                      <div className="event-details">
+                        <div className="event-company">{event.company_name || event.ticker}</div>
+                        <div className="event-meta">
+                          {new Date(event.event_date).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' })} • {event.quarter}
+                        </div>
+                      </div>
+                      <span className="status-badge">Summary Available</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-          )}
-        </section>
+          </section>
 
-        <section className="card">
-          <h2>Upcoming Events</h2>
-          <p className="empty-state">No upcoming events scheduled</p>
-        </section>
+          <section className="card">
+            <div className="card-header">
+              <h2>Upcoming Events</h2>
+            </div>
+            <div className="card-body">
+              <div className="empty-state">
+                <p>No upcoming events scheduled</p>
+                <p className="hint">Upcoming earnings calls will be shown here</p>
+              </div>
+            </div>
+          </section>
+        </div>
 
-        <section className="card">
-          <h2>Your Watchlist</h2>
-          <div className="empty-state">
-            <p>No companies in watchlist</p>
-            <p className="hint">Add companies to start tracking earnings calls</p>
-          </div>
-        </section>
+        <div className="dashboard-sidebar">
+          <section className="card">
+            <div className="card-header">
+              <h2>Live Right Now</h2>
+            </div>
+            <div className="card-body">
+              <div className="empty-state">
+                <p>No live events</p>
+                <p className="hint">Live calls will appear here</p>
+              </div>
+            </div>
+          </section>
+
+          <section className="card">
+            <div className="card-header">
+              <h2>Your Watchlist</h2>
+            </div>
+            <div className="card-body">
+              {watchlistCompanies.length === 0 ? (
+                <div className="empty-state">
+                  <p>No companies in watchlist</p>
+                  <p className="hint">Add companies to start tracking earnings calls</p>
+                </div>
+              ) : (
+                <div className="watchlist-list">
+                  {watchlistCompanies.map(company => (
+                    <div key={company.ticker} className="watchlist-item">
+                      <div className="watchlist-company">
+                        <div className="watchlist-icon">
+                          {company.ticker.charAt(0)}
+                        </div>
+                        <div className="watchlist-details">
+                          <div className="company-ticker">{company.ticker}</div>
+                          <div className="company-name">{company.name}</div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </section>
+        </div>
       </div>
 
       <div className="info-banner">
