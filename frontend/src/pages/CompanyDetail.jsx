@@ -83,7 +83,7 @@ function CompanyDetail() {
               {event.ticker?.charAt(0)}
             </div>
             <div>
-              <h1 className="text-3xl font-bold">{event.company_name}</h1>
+              <h1 className="text-3xl font-bold text-text">{event.company_name}</h1>
               <div className="flex items-center gap-3 text-textMuted mt-1">
                 <span className="font-mono text-sm font-semibold">{event.ticker}</span>
                 <span>•</span>
@@ -120,7 +120,7 @@ function CompanyDetail() {
                 {summary ? (
                   <>
                     <div className="bg-surface rounded-lg border border-border p-6 shadow-card">
-                      <h2 className="text-xl font-semibold mb-6">Key Highlights</h2>
+                      <h2 className="text-xl font-semibold mb-6 text-text">Key Highlights</h2>
                       <ul className="space-y-3">
                         {summary.quicktake?.highlights?.map((item, idx) => (
                           <li key={idx} className="flex justify-between items-start gap-4 pb-3 border-b border-border/50 last:border-0">
@@ -136,7 +136,7 @@ function CompanyDetail() {
                     </div>
 
                     <div className="bg-surface rounded-lg border border-border p-6 shadow-card">
-                      <h2 className="text-xl font-semibold mb-6">Key Quotes</h2>
+                      <h2 className="text-xl font-semibold mb-6 text-text">Key Quotes</h2>
                       <div className="space-y-4">
                         {summary.extractive_quotes?.map((quote, idx) => (
                           <div key={idx} className={`pl-4 py-3 border-l-4 ${getCompanyColor(event.ticker)} bg-card rounded-r-lg`}>
@@ -153,7 +153,7 @@ function CompanyDetail() {
 
                     {summary.guidance_table && Object.keys(summary.guidance_table).length > 0 && (
                       <div className="bg-surface rounded-lg border border-border p-6 shadow-card">
-                        <h2 className="text-xl font-semibold mb-6">Guidance</h2>
+                        <h2 className="text-xl font-semibold mb-6 text-text">Guidance</h2>
                         <div className="space-y-3">
                           {Object.entries(summary.guidance_table).map(([period, metrics]) => (
                             <div key={period} className="bg-card rounded-lg p-4">
@@ -246,7 +246,7 @@ function CompanyDetail() {
 
           <div className="lg:col-span-1">
             <div className="bg-surface rounded-lg border border-border p-6 sticky top-24 shadow-card">
-              <h3 className="text-lg font-semibold mb-6">Quick Facts</h3>
+              <h3 className="text-lg font-semibold mb-6 text-text">Quick Facts</h3>
               <div className="space-y-4">
                 <div>
                   <div className="flex items-center gap-2 text-textMuted text-sm mb-1">

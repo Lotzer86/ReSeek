@@ -46,7 +46,7 @@ function Dashboard() {
     <div className="min-h-screen bg-bg">
       <div className="max-w-screen-2xl mx-auto p-6">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
+          <h1 className="text-3xl font-bold mb-2 text-text">Dashboard</h1>
           <p className="text-textMuted">AI-powered earnings call analysis</p>
         </div>
 
@@ -59,7 +59,7 @@ function Dashboard() {
           <div className="lg:col-span-6 space-y-6">
             <div className="bg-surface rounded-lg border border-border p-6 shadow-card">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-semibold flex items-center gap-2">
+                <h2 className="text-xl font-semibold flex items-center gap-2 text-text">
                   <TrendingUp size={20} className="text-brand" />
                   Latest Events
                 </h2>
@@ -81,7 +81,7 @@ function Dashboard() {
 
             {upcomingEvents.length > 0 && (
               <div className="bg-surface rounded-lg border border-border p-6 shadow-card">
-                <h2 className="text-xl font-semibold flex items-center gap-2 mb-6">
+                <h2 className="text-xl font-semibold flex items-center gap-2 mb-6 text-text">
                   <Calendar size={20} className="text-brand" />
                   Upcoming Events
                 </h2>

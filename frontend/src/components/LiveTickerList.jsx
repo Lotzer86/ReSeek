@@ -11,7 +11,7 @@ function LiveTickerList() {
       <div className="bg-surface rounded-lg border border-border p-5 shadow-card">
         <div className="flex items-center gap-2 mb-3">
           <Radio size={16} className="text-red-500 animate-pulse" />
-          <h3 className="text-lg font-semibold">Live Right Now</h3>
+          <h3 className="text-lg font-semibold text-text">Live Right Now</h3>
         </div>
         <p className="text-sm text-textMuted">No live earnings calls at the moment</p>
       </div>
@@ -22,7 +22,7 @@ function LiveTickerList() {
     <div className="bg-surface rounded-lg border border-border p-5 shadow-card">
       <div className="flex items-center gap-2 mb-4">
         <Radio size={16} className="text-red-500 animate-pulse" />
-        <h3 className="text-lg font-semibold">Live Right Now</h3>
+        <h3 className="text-lg font-semibold text-text">Live Right Now</h3>
       </div>
       <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
         {liveEvents.map((event) => (

@@ -45,7 +45,7 @@ function MentionsList() {
 
   return (
     <div className="bg-surface rounded-lg border border-border p-5 shadow-card">
-      <h3 className="text-lg font-semibold mb-5">Recent Mentions</h3>
+      <h3 className="text-lg font-semibold mb-5 text-text">Recent Mentions</h3>
       <div className="space-y-3 max-h-96 overflow-y-auto scrollbar-hide">
         {mentions.map((mention) => (
           <div key={mention.id} className="bg-card rounded-lg p-3 border border-border shadow-sm hover:shadow-card hover:border-borderLight transition-all">

@@ -47,7 +47,7 @@ function ActivityFeed() {
 
   return (
     <div className="bg-surface rounded-lg border border-border p-5 shadow-card">
-      <h3 className="text-lg font-semibold mb-5">Activity Feed</h3>
+      <h3 className="text-lg font-semibold mb-5 text-text">Activity Feed</h3>
       <div className="space-y-6">
         {groupedActivities.map((group) => (
           <div key={group.label}>
