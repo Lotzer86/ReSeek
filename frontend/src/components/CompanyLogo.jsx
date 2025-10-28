@@ -24,11 +24,34 @@ function CompanyLogo({ ticker, size = 'md', className = '' }) {
     return colors[ticker] || 'bg-brand'
   }
 
-  const logoSources = [
-    `https://asset.parqet.com/logo/${ticker}`,
-    `https://eodhd.com/img/logos/US/${ticker}.png`,
-    `https://elbstream.com/logos/symbol/${ticker}`,
-  ]
+  const getCompanyDomain = (ticker) => {
+    const domains = {
+      'AAPL': 'apple.com',
+      'MSFT': 'microsoft.com',
+      'GOOGL': 'google.com',
+      'GOOG': 'google.com',
+      'AMZN': 'amazon.com',
+      'META': 'meta.com',
+      'TSLA': 'tesla.com',
+      'NVDA': 'nvidia.com',
+    }
+    return domains[ticker]
+  }
+
+  const domain = getCompanyDomain(ticker)
+  
+  const logoSources = domain 
+    ? [
+        `https://logo.clearbit.com/${domain}`,
+        `https://img.logo.dev/${domain}?token=pk_X-WewAjpSdC6R48E7VIGZg`,
+        `https://asset.parqet.com/logo/${ticker}`,
+        `https://eodhd.com/img/logos/US/${ticker}.png`,
+      ]
+    : [
+        `https://asset.parqet.com/logo/${ticker}`,
+        `https://eodhd.com/img/logos/US/${ticker}.png`,
+        `https://elbstream.com/logos/symbol/${ticker}`,
+      ]
 
   const handleError = () => {
     if (logoSource < logoSources.length - 1) {
