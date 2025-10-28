@@ -46,6 +46,36 @@ function CompanyDetail() {
     return colors[ticker] || 'border-brand'
   }
 
+  const getPreviousEvents = (ticker) => {
+    const events = {
+      'AAPL': [
+        { quarter: 'Q2 2024', date: 'July 15, 2024', revenue: '$85.8B', growth: '+5%', highlights: ['iPhone 15 launch success', 'Services growth 14%', 'Vision Pro early adoption'] },
+        { quarter: 'Q1 2024', date: 'April 10, 2024', revenue: '$90.8B', growth: '+4%', highlights: ['Holiday quarter record', 'Mac revenue up 21%', 'Wearables strong growth'] },
+        { quarter: 'Q4 2023', date: 'January 8, 2024', revenue: '$119.6B', growth: '+2%', highlights: ['Record services quarter', 'Greater China stabilizing', 'Operating margin 30.7%'] },
+        { quarter: 'Q3 2023', date: 'October 12, 2023', revenue: '$89.5B', growth: '+1%', highlights: ['iPhone 14 Pro demand', 'India revenue doubling', 'Services all-time high'] },
+      ],
+      'MSFT': [
+        { quarter: 'Q2 2024', date: 'July 18, 2024', revenue: '$56.2B', growth: '+15%', highlights: ['Azure growth 29%', 'GitHub Copilot adoption', 'Gaming revenue up 44%'] },
+        { quarter: 'Q1 2024', date: 'April 16, 2024', revenue: '$61.9B', growth: '+17%', highlights: ['Copilot for M365 GA', 'LinkedIn revenue +10%', 'Xbox strong quarter'] },
+        { quarter: 'Q4 2023', date: 'January 11, 2024', revenue: '$62.0B', growth: '+18%', highlights: ['Cloud hits $33.7B', 'AI momentum building', 'Teams users 320M'] },
+        { quarter: 'Q3 2023', date: 'October 15, 2023', revenue: '$56.5B', growth: '+13%', highlights: ['Azure +28%', 'Surface revenue up', 'PC market stabilizing'] },
+      ],
+      'GOOGL': [
+        { quarter: 'Q2 2024', date: 'July 20, 2024', revenue: '$74.6B', growth: '+14%', highlights: ['Search revenue strong', 'YouTube ads +13%', 'Cloud +29%'] },
+        { quarter: 'Q1 2024', date: 'April 18, 2024', revenue: '$80.5B', growth: '+15%', highlights: ['AI integration in Search', 'Cloud profitability', 'Pixel 8 success'] },
+        { quarter: 'Q4 2023', date: 'January 14, 2024', revenue: '$86.3B', growth: '+13%', highlights: ['Record advertising', 'Bard improvements', 'Waymo expansion'] },
+        { quarter: 'Q3 2023', date: 'October 18, 2023', revenue: '$76.7B', growth: '+11%', highlights: ['Search dominance', 'YouTube Shorts growth', 'Cloud acceleration'] },
+      ],
+      'AMZN': [
+        { quarter: 'Q2 2024', date: 'August 1, 2024', revenue: '$148.0B', growth: '+10%', highlights: ['Prime Day record', 'AWS growth 19%', 'Advertising +20%'] },
+        { quarter: 'Q1 2024', date: 'May 2, 2024', revenue: '$143.3B', growth: '+13%', highlights: ['North America profitability', 'AWS stabilizing', 'Operating margin 10.7%'] },
+        { quarter: 'Q4 2023', date: 'February 6, 2024', revenue: '$170.0B', growth: '+14%', highlights: ['Holiday season record', 'AWS $24.2B', 'International improving'] },
+        { quarter: 'Q3 2023', date: 'October 26, 2023', revenue: '$143.1B', growth: '+13%', highlights: ['Prime members 200M+', 'AWS margin expansion', 'One-day delivery'] },
+      ],
+    }
+    return events[ticker] || []
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-bg flex items-center justify-center">
@@ -94,7 +124,7 @@ function CompanyDetail() {
           </div>
 
           <div className="flex gap-1 mt-6">
-            {['summary', 'slides', 'qa', 'transcript', 'chat'].map((tab) => (
+            {['summary', 'slides', 'qa', 'transcript', 'previous', 'chat'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -104,7 +134,7 @@ function CompanyDetail() {
                     : 'text-textMuted hover:text-text hover:bg-card'
                 }`}
               >
-                {tab === 'qa' ? 'Q&A Map' : tab.charAt(0).toUpperCase() + tab.slice(1)}
+                {tab === 'qa' ? 'Q&A Map' : tab === 'previous' ? 'Previous Events' : tab.charAt(0).toUpperCase() + tab.slice(1)}
               </button>
             ))}
           </div>
@@ -266,6 +296,51 @@ function CompanyDetail() {
                     <p className="text-textMuted">No transcript available</p>
                   </div>
                 )}
+              </div>
+            )}
+
+            {activeTab === 'previous' && (
+              <div className="space-y-4">
+                <div className="bg-surface rounded-lg border border-border p-6 shadow-card">
+                  <h2 className="text-xl font-semibold mb-6 text-text">Previous Earnings Calls</h2>
+                  <div className="space-y-4">
+                    {getPreviousEvents(event.ticker).map((prevEvent, idx) => (
+                      <div key={idx} className="bg-card rounded-lg border border-border/50 p-5 hover:shadow-lg transition-shadow">
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-2">
+                              <h3 className="text-lg font-bold text-text">{prevEvent.quarter}</h3>
+                              <span className="px-2 py-1 bg-brand/10 text-brand text-xs font-semibold rounded">
+                                {prevEvent.growth}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-4 text-sm text-textMuted">
+                              <div className="flex items-center gap-1">
+                                <Calendar size={14} />
+                                <span>{prevEvent.date}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <DollarSign size={14} />
+                                <span className="font-semibold text-text">{prevEvent.revenue}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <div className="text-xs text-textMuted font-semibold mb-2">KEY HIGHLIGHTS</div>
+                          <ul className="space-y-1">
+                            {prevEvent.highlights.map((highlight, hIdx) => (
+                              <li key={hIdx} className="text-sm text-text flex items-start gap-2">
+                                <span className="text-brand mt-1">•</span>
+                                <span>{highlight}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
 
