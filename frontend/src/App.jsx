@@ -1,30 +1,21 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Sidebar from './components/Sidebar'
 import Dashboard from './pages/Dashboard'
 import CompanyDetail from './pages/CompanyDetail'
-import './App.css'
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="app">
-        <nav className="navbar">
-          <div className="nav-container">
-            <Link to="/" className="nav-logo">
-              <h1>ReSeek</h1>
-              <span className="beta-badge">MVP</span>
-            </Link>
-            <div className="nav-links">
-              <Link to="/" className="nav-link">Dashboard</Link>
-              <Link to="/settings" className="nav-link">Settings</Link>
-            </div>
-          </div>
-        </nav>
-        
-        <main className="main-content">
+      <div className="flex min-h-screen bg-bg">
+        <Sidebar />
+        <main className="flex-1 ml-64">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/event/:id" element={<CompanyDetail />} />
-            <Route path="/settings" element={<div className="page"><h2>Settings (Coming Soon)</h2></div>} />
+            <Route path="/watchlist" element={<div className="p-6"><h2 className="text-2xl font-bold">Watchlist (Coming Soon)</h2></div>} />
+            <Route path="/events" element={<div className="p-6"><h2 className="text-2xl font-bold">Events (Coming Soon)</h2></div>} />
+            <Route path="/transcripts" element={<div className="p-6"><h2 className="text-2xl font-bold">Transcripts (Coming Soon)</h2></div>} />
+            <Route path="/settings" element={<div className="p-6"><h2 className="text-2xl font-bold">Settings (Coming Soon)</h2></div>} />
           </Routes>
         </main>
       </div>
