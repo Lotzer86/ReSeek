@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import auth, watchlist, events, chat
+from app.routes import auth, watchlist, events, chat, seed
 from app.config import get_settings
 import logging
 
@@ -27,6 +27,7 @@ app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(watchlist.router, prefix="/api/watchlist", tags=["watchlist"])
 app.include_router(events.router, prefix="/api/events", tags=["events"])
 app.include_router(chat.router, prefix="/api/chat", tags=["chat"])
+app.include_router(seed.router, prefix="/api/seed", tags=["seed"])
 
 
 @app.get("/")
