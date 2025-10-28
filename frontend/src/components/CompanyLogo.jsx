@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 function CompanyLogo({ ticker, size = 'md', className = '' }) {
-  const [imageError, setImageError] = useState(false)
+  const [logoSource, setLogoSource] = useState(0)
   
   const sizeClasses = {
     'sm': 'w-8 h-8 text-sm',
@@ -24,9 +24,21 @@ function CompanyLogo({ ticker, size = 'md', className = '' }) {
     return colors[ticker] || 'bg-brand'
   }
 
-  const logoUrl = `https://eodhd.com/img/logos/US/${ticker}.png`
+  const logoSources = [
+    `https://asset.parqet.com/logo/${ticker}`,
+    `https://eodhd.com/img/logos/US/${ticker}.png`,
+    `https://elbstream.com/logos/symbol/${ticker}`,
+  ]
+
+  const handleError = () => {
+    if (logoSource < logoSources.length - 1) {
+      setLogoSource(logoSource + 1)
+    } else {
+      setLogoSource(-1)
+    }
+  }
   
-  if (imageError) {
+  if (logoSource === -1) {
     return (
       <div className={`${sizeClasses[size]} rounded-lg ${getCompanyColor(ticker)} flex items-center justify-center text-white font-bold flex-shrink-0 ${className}`}>
         <span>{ticker?.charAt(0)}</span>
@@ -37,10 +49,10 @@ function CompanyLogo({ ticker, size = 'md', className = '' }) {
   return (
     <div className={`${sizeClasses[size]} rounded-lg bg-white flex items-center justify-center flex-shrink-0 overflow-hidden ${className}`}>
       <img
-        src={logoUrl}
+        src={logoSources[logoSource]}
         alt={`${ticker} logo`}
         className="w-full h-full object-contain p-1"
-        onError={() => setImageError(true)}
+        onError={handleError}
       />
     </div>
   )
