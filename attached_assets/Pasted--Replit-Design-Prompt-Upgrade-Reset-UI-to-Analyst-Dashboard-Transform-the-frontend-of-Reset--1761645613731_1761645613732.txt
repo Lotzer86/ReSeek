@@ -1,0 +1,77 @@
+🎨 Replit Design Prompt — “Upgrade Reset UI to Analyst Dashboard”
+
+Transform the frontend of Reset (React + Tailwind + shadcn/ui) from a simple card layout into a dense, professional financial-analyst dashboard inspired by Aiera and Bloomberg panels.
+
+🧭 Overall layout
+	•	Switch from top navigation → persistent left sidebar with:
+	•	App logo + name “ReSeek” (green MVP badge)
+	•	Navigation sections:
+	•	Dashboard
+	•	Watchlist
+	•	Events
+	•	Transcripts
+	•	Settings
+	•	At bottom: small profile/avatar + logout.
+	•	Keep main content area scrollable on the right with cards and grids.
+	•	Use 3-column dashboard layout:
+	•	Left column: Activity Feed / Live Right Now
+	•	Center column: Latest & Upcoming Events
+	•	Right column: Mentions / Insights / Watchlist
+
+🧱 Dashboard page
+
+Replace the simple “Latest Events” list with panels that look like:
+
+Left column — “Live right now” & Activity Feed
+	•	Horizontal list of circular company avatars for live events (like the colored dots in the reference).
+	•	Below: chronological “activity feed” cards:
+	•	Each entry: company logo, event title, short text (“MSFT mentioned guidance 3x in transcript”), small timestamp.
+	•	Grouped by day (“Today”, “Yesterday”).
+	•	Use subtle colored badges for companies (consistent color per ticker).
+
+Center column — Latest & Upcoming Events
+	•	Card grid:
+	•	Each card shows company logo, ticker, quarter, and status badges:
+	•	“LIVE”, “SUMMARY AVAILABLE”, “TRANSCRIPT UPLOADED”.
+	•	Hover = slight scale-up, shadow highlight.
+	•	Include small icons for transcript, audio, slides.
+	•	“Upcoming Events” panel below with date chips (Today / Tomorrow / Next Week).
+
+Right column — Mentions & Watchlist
+	•	“Mentions in Transcript”: horizontal scroll list of quotes with colored highlights for company names (exactly like the reference).
+	•	“Your Watchlist”: small stacked list with company avatar, name, and next event date.
+
+⸻
+
+🧩 Company Detail page
+	•	Keep header (company logo + name + ticker + date + quarter).
+	•	Tabs (Summary, Q&A, Transcript, Chat) remain, but move to sticky sub-nav bar just under header.
+	•	Add subtle accent color per company (auto-generated hash from ticker).
+	•	Add right sidebar for Quick Facts:
+	•	Market cap, sector, last close, next earnings date (placeholder fields).
+	•	“Summary” tab:
+	•	Replace plain table with two cards:
+	•	Key Highlights (bullets + timestamp chips)
+	•	Key Quotes (quote block with colored side bar, CEO/CFO tag)
+	•	“Transcript” tab: collapsible sections, highlight the selected quote when clicked from Summary.
+	•	“Chat” tab: full-width chat interface with left transcript context panel (optional).
+
+⸻
+
+💅 Styling
+	•	Use Tailwind with neutral grays (gray-950 bg for sidebar, gray-900 main bg, gray-100 text).
+	•	Accent color: ReSeek green (#22C55E).
+	•	Font: Inter or IBM Plex Sans for data readability.
+	•	Light borders, 8px radius, subtle drop shadows.
+	•	Use Lucide icons for events (clock, mic, file-text, bar-chart).
+
+⸻
+
+🧠 Components to add
+	•	<ActivityFeed /> — grouped by day, with icons & timestamps.
+	•	<LiveTickerList /> — horizontal scroll list of live companies.
+	•	<EventCard /> — reusable for latest/upcoming panels.
+	•	<MentionsList /> — small cards with highlighted company names.
+	•	<Sidebar /> — fixed left navigation.
+	•	<TopBar /> — optional search & filters.
+	•	<QuickFacts /> — side panel for company details.
