@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
+import CompanyDetail from './pages/CompanyDetail'
 import './App.css'
 
 function App() {
@@ -22,8 +23,8 @@ function App() {
         <main className="main-content">
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/event/:id" element={<CompanyDetail />} />
             <Route path="/settings" element={<div className="page"><h2>Settings (Coming Soon)</h2></div>} />
-            <Route path="/company/:ticker" element={<div className="page"><h2>Company Details (Coming Soon)</h2></div>} />
           </Routes>
         </main>
       </div>

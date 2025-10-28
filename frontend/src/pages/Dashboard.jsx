@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import './Dashboard.css'
 
 function Dashboard() {
+  const navigate = useNavigate()
   const [events, setEvents] = useState([])
   const [watchlist, setWatchlist] = useState([])
   const [loading, setLoading] = useState(true)
@@ -57,7 +59,11 @@ function Dashboard() {
               ) : (
                 <div className="event-list">
                   {events.slice(0, 6).map(event => (
-                    <div key={event.id} className="event-item">
+                    <div 
+                      key={event.id} 
+                      className="event-item"
+                      onClick={() => navigate(`/event/${event.id}`)}
+                    >
                       <div className="event-icon">
                         {event.ticker?.charAt(0) || '?'}
                       </div>
