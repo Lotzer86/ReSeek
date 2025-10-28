@@ -1,4 +1,4 @@
-import openai
+from openai import AsyncOpenAI
 from typing import List, Dict, Any
 from app.config import get_settings
 import tiktoken
@@ -7,13 +7,13 @@ import logging
 logger = logging.getLogger(__name__)
 settings = get_settings()
 
-openai.api_key = settings.openai_api_key
+client = AsyncOpenAI(api_key=settings.openai_api_key)
 
 
 async def get_embedding(text: str, model: str = "text-embedding-3-large") -> List[float]:
     """Generate embedding for text using OpenAI"""
     try:
-        response = await openai.embeddings.create(
+        response = await client.embeddings.create(
             model=model,
             input=text
         )
@@ -31,7 +31,7 @@ async def get_chat_completion(
 ) -> str:
     """Get chat completion from OpenAI"""
     try:
-        response = await openai.chat.completions.create(
+        response = await client.chat.completions.create(
             model=model,
             messages=messages,
             temperature=temperature,

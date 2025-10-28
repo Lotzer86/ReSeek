@@ -31,7 +31,7 @@ async def process_transcript_chunks(transcript_id: int, transcript_text: str, db
                 speaker=speaker,
                 token_count=chunk_info["token_count"],
                 embedding=embedding,
-                metadata={
+                meta_data={
                     "start_token": chunk_info["start_token"],
                     "end_token": chunk_info["end_token"]
                 }

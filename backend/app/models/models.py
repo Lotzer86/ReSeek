@@ -83,7 +83,7 @@ class Event(Base):
     audio_url = Column(String)
     provider = Column(String, default="finnhub")
     provider_event_id = Column(String, unique=True)
-    metadata = Column(JSON)
+    meta_data = Column(JSON)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     
@@ -117,7 +117,7 @@ class TranscriptChunk(Base):
     speaker = Column(String)
     token_count = Column(Integer)
     embedding = Column(Vector(3072))
-    metadata = Column(JSON)
+    meta_data = Column(JSON)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     
     transcript = relationship("Transcript", back_populates="chunks")
@@ -151,7 +151,7 @@ class QAItem(Base):
     answer_timestamp = Column(String)
     topic = Column(String)
     deflection_score = Column(Integer)
-    metadata = Column(JSON)
+    meta_data = Column(JSON)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     
     event = relationship("Event", back_populates="qa_items")
