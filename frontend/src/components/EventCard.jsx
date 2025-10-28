@@ -1,18 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 import { FileText, Mic, BarChart } from 'lucide-react'
+import CompanyLogo from './CompanyLogo'
 
 function EventCard({ event }) {
   const navigate = useNavigate()
-
-  const getCompanyColor = (ticker) => {
-    const colors = {
-      'AAPL': 'bg-purple-500',
-      'MSFT': 'bg-blue-500',
-      'GOOGL': 'bg-red-500',
-      'AMZN': 'bg-orange-500',
-    }
-    return colors[ticker] || 'bg-brand'
-  }
 
   return (
     <div
@@ -20,9 +11,7 @@ function EventCard({ event }) {
       className="bg-card rounded-lg border border-border p-4 hover:bg-cardHover hover:border-borderLight hover:shadow-card-hover hover:scale-[1.01] transition-all cursor-pointer shadow-card"
     >
       <div className="flex items-start gap-3 mb-3">
-        <div className={`w-12 h-12 rounded-lg ${getCompanyColor(event.ticker)} flex items-center justify-center text-white font-bold flex-shrink-0`}>
-          <span>{event.ticker?.charAt(0)}</span>
-        </div>
+        <CompanyLogo ticker={event.ticker} size="lg" />
         <div className="flex-1 min-w-0">
           <h4 className="font-semibold text-text truncate">{event.company_name}</h4>
           <div className="flex items-center gap-2 text-xs text-textMuted mt-1">

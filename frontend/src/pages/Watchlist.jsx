@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { Star, Plus, X, TrendingUp } from 'lucide-react'
 import axios from 'axios'
 import StockPicker from '../components/StockPicker'
+import CompanyLogo from '../components/CompanyLogo'
 
 function Watchlist() {
-  const navigate = useNavigate()
   const [watchlist, setWatchlist] = useState([])
   const [loading, setLoading] = useState(true)
   const [showPicker, setShowPicker] = useState(false)
@@ -52,20 +51,6 @@ function Watchlist() {
     } finally {
       setRemoving(null)
     }
-  }
-
-  const getCompanyColor = (ticker) => {
-    const colors = {
-      'AAPL': 'bg-purple-500',
-      'MSFT': 'bg-blue-500',
-      'GOOGL': 'bg-red-500',
-      'GOOG': 'bg-red-500',
-      'AMZN': 'bg-orange-500',
-      'META': 'bg-blue-600',
-      'TSLA': 'bg-red-600',
-      'NVDA': 'bg-green-600',
-    }
-    return colors[ticker] || 'bg-brand'
   }
 
   if (loading) {
@@ -123,9 +108,7 @@ function Watchlist() {
                   }}
                 >
                   <div className="flex items-start gap-3 mb-3">
-                    <div className={`w-12 h-12 rounded-lg ${getCompanyColor(item.ticker)} flex items-center justify-center text-white font-bold flex-shrink-0`}>
-                      <span>{item.ticker?.charAt(0)}</span>
-                    </div>
+                    <CompanyLogo ticker={item.ticker} size="lg" />
                     <div className="flex-1 min-w-0">
                       <h3 className="font-semibold text-text truncate">{item.company_name}</h3>
                       <div className="text-sm font-mono font-semibold text-brand">{item.ticker}</div>

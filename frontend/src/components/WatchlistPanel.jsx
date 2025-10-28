@@ -1,25 +1,12 @@
 import { useState } from 'react'
-import { Star, Calendar, Plus, X } from 'lucide-react'
+import { Star, Plus, X } from 'lucide-react'
 import StockPicker from './StockPicker'
+import CompanyLogo from './CompanyLogo'
 import axios from 'axios'
 
 function WatchlistPanel({ watchlist = [], onUpdate }) {
   const [showPicker, setShowPicker] = useState(false)
   const [removing, setRemoving] = useState(null)
-
-  const getCompanyColor = (ticker) => {
-    const colors = {
-      'AAPL': 'bg-purple-500',
-      'MSFT': 'bg-blue-500',
-      'GOOGL': 'bg-red-500',
-      'GOOG': 'bg-red-500',
-      'AMZN': 'bg-orange-500',
-      'META': 'bg-blue-600',
-      'TSLA': 'bg-red-600',
-      'NVDA': 'bg-green-600',
-    }
-    return colors[ticker] || 'bg-brand'
-  }
 
   const handleAdd = async (stock) => {
     try {
@@ -80,9 +67,7 @@ function WatchlistPanel({ watchlist = [], onUpdate }) {
           <div className="space-y-3">
             {watchlist.map((item) => (
               <div key={item.id} className="flex items-center gap-3 p-2 rounded-lg hover:bg-card transition-colors group">
-                <div className={`w-10 h-10 rounded-lg ${getCompanyColor(item.ticker)} flex items-center justify-center text-white font-bold flex-shrink-0`}>
-                  <span className="text-sm">{item.ticker?.charAt(0)}</span>
-                </div>
+                <CompanyLogo ticker={item.ticker} size="md" />
                 <div className="flex-1 min-w-0">
                   <div className="font-medium text-sm truncate text-text">{item.company_name}</div>
                   <div className="flex items-center gap-1 text-xs text-textMuted mt-0.5">

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { ArrowLeft, TrendingUp, DollarSign, Building2, Calendar } from 'lucide-react'
+import CompanyLogo from '../components/CompanyLogo'
 
 function CompanyDetail() {
   const { id } = useParams()
@@ -37,12 +38,12 @@ function CompanyDetail() {
 
   const getCompanyColor = (ticker) => {
     const colors = {
-      'AAPL': 'bg-purple-500',
-      'MSFT': 'bg-blue-500',
-      'GOOGL': 'bg-red-500',
-      'AMZN': 'bg-orange-500',
+      'AAPL': 'border-purple-500',
+      'MSFT': 'border-blue-500',
+      'GOOGL': 'border-red-500',
+      'AMZN': 'border-orange-500',
     }
-    return colors[ticker] || 'bg-brand'
+    return colors[ticker] || 'border-brand'
   }
 
   if (loading) {
@@ -79,9 +80,7 @@ function CompanyDetail() {
           </button>
           
           <div className="flex items-center gap-4">
-            <div className={`w-16 h-16 rounded-xl ${getCompanyColor(event.ticker)} flex items-center justify-center text-white font-bold text-2xl shadow-lg`}>
-              {event.ticker?.charAt(0)}
-            </div>
+            <CompanyLogo ticker={event.ticker} size="xl" className="shadow-lg" />
             <div>
               <h1 className="text-3xl font-bold text-text">{event.company_name}</h1>
               <div className="flex items-center gap-3 text-textMuted mt-1">
