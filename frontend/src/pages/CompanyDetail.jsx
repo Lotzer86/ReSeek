@@ -94,7 +94,7 @@ function CompanyDetail() {
           </div>
 
           <div className="flex gap-1 mt-6">
-            {['summary', 'qa', 'transcript', 'chat'].map((tab) => (
+            {['summary', 'slides', 'qa', 'transcript', 'chat'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -120,33 +120,67 @@ function CompanyDetail() {
                   <>
                     <div className="bg-surface rounded-lg border border-border p-6 shadow-card">
                       <h2 className="text-xl font-semibold mb-6 text-text">Key Highlights</h2>
-                      <ul className="space-y-3">
-                        {summary.quicktake?.highlights?.map((item, idx) => (
-                          <li key={idx} className="flex justify-between items-start gap-4 pb-3 border-b border-border/50 last:border-0">
-                            <span className="text-text flex-1">{item.text}</span>
-                            {item.citation && (
-                              <span className="px-2 py-1 text-xs font-mono font-semibold bg-brand/20 text-brand rounded flex-shrink-0">
-                                {item.citation.timestamp}
-                              </span>
-                            )}
-                          </li>
-                        ))}
-                      </ul>
+                      {summary.quicktake && summary.quicktake.length > 0 ? (
+                        <div className="space-y-4">
+                          {summary.quicktake.map((item, idx) => (
+                            <div key={idx} className="flex items-start gap-4 p-4 bg-gradient-to-r from-brand/5 to-transparent rounded-lg border-l-4 border-brand">
+                              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-brand/20 flex items-center justify-center">
+                                <span className="text-brand font-bold text-sm">{idx + 1}</span>
+                              </div>
+                              <div className="flex-1">
+                                <p className="text-text leading-relaxed mb-2">{item.text}</p>
+                                {item.timestamp && (
+                                  <div className="flex items-center gap-3">
+                                    <button 
+                                      onClick={() => setActiveTab('transcript')}
+                                      className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium bg-brand/10 text-brand rounded hover:bg-brand/20 transition-colors"
+                                    >
+                                      <span className="font-mono">{item.timestamp}</span>
+                                      <span>• View source</span>
+                                    </button>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-textMuted">No highlights available</p>
+                      )}
                     </div>
 
                     <div className="bg-surface rounded-lg border border-border p-6 shadow-card">
                       <h2 className="text-xl font-semibold mb-6 text-text">Key Quotes</h2>
                       <div className="space-y-4">
-                        {summary.extractive_quotes?.map((quote, idx) => (
-                          <div key={idx} className={`pl-4 py-3 border-l-4 ${getCompanyColor(event.ticker)} bg-card rounded-r-lg`}>
-                            <p className="text-text italic mb-2">&quot;{quote.quote}&quot;</p>
-                            <div className="flex items-center gap-3 text-sm">
-                              <span className="font-semibold text-brand">{quote.speaker}</span>
-                              <span className="text-textMuted">•</span>
-                              <span className="text-textMuted font-mono">{quote.timestamp}</span>
+                        {summary.extractive_quotes && summary.extractive_quotes.length > 0 ? (
+                          summary.extractive_quotes.map((quote, idx) => (
+                            <div key={idx} className={`pl-5 py-4 border-l-4 ${getCompanyColor(event.ticker)} bg-card rounded-r-lg hover:shadow-md transition-shadow`}>
+                              <p className="text-text italic mb-3 leading-relaxed">&quot;{quote.quote}&quot;</p>
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3 text-sm">
+                                  <span className="font-semibold text-brand">{quote.speaker}</span>
+                                  {quote.topic && (
+                                    <>
+                                      <span className="text-textMuted">•</span>
+                                      <span className="text-textMuted">{quote.topic}</span>
+                                    </>
+                                  )}
+                                </div>
+                                {quote.timestamp && (
+                                  <button 
+                                    onClick={() => setActiveTab('transcript')}
+                                    className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium bg-brand/10 text-brand rounded hover:bg-brand/20 transition-colors"
+                                  >
+                                    <span className="font-mono">{quote.timestamp}</span>
+                                    <span>• View source</span>
+                                  </button>
+                                )}
+                              </div>
                             </div>
-                          </div>
-                        ))}
+                          ))
+                        ) : (
+                          <p className="text-textMuted">No quotes available</p>
+                        )}
                       </div>
                     </div>
 
@@ -235,10 +269,33 @@ function CompanyDetail() {
               </div>
             )}
 
+            {activeTab === 'slides' && (
+              <div className="bg-surface rounded-lg border border-border p-12 text-center shadow-card">
+                <div className="max-w-md mx-auto">
+                  <div className="w-20 h-20 mx-auto mb-4 bg-brand/10 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <p className="text-text text-lg mb-2 font-semibold">Presentation Slides</p>
+                  <p className="text-textMuted text-sm">View the earnings presentation slides here</p>
+                  <p className="text-textMuted text-xs mt-4 italic">Feature coming soon</p>
+                </div>
+              </div>
+            )}
+
             {activeTab === 'chat' && (
               <div className="bg-surface rounded-lg border border-border p-12 text-center shadow-card">
-                <p className="text-text text-lg mb-2">Chat feature coming soon</p>
-                <p className="text-textMuted text-sm">Ask questions about this earnings call using AI</p>
+                <div className="max-w-md mx-auto">
+                  <div className="w-20 h-20 mx-auto mb-4 bg-brand/10 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                    </svg>
+                  </div>
+                  <p className="text-text text-lg mb-2 font-semibold">AI Chat</p>
+                  <p className="text-textMuted text-sm">Ask questions about this earnings call using AI</p>
+                  <p className="text-textMuted text-xs mt-4 italic">Feature coming soon</p>
+                </div>
               </div>
             )}
           </div>
