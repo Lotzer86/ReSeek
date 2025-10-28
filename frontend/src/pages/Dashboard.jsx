@@ -31,6 +31,15 @@ function Dashboard() {
     }
   }
 
+  const refreshWatchlist = async () => {
+    try {
+      const res = await axios.get('/api/watchlist/demo_user')
+      setWatchlist(res.data.items || [])
+    } catch (error) {
+      console.error('Error refreshing watchlist:', error)
+    }
+  }
+
   const upcomingEvents = events.filter(e => e.event_status === 'upcoming').slice(0, 4)
   const latestEvents = events.filter(e => e.event_status === 'completed').slice(0, 6)
 
@@ -96,7 +105,7 @@ function Dashboard() {
 
           <div className="lg:col-span-3 space-y-6">
             <MentionsList />
-            <WatchlistPanel watchlist={watchlist} />
+            <WatchlistPanel watchlist={watchlist} onUpdate={refreshWatchlist} />
           </div>
         </div>
       </div>

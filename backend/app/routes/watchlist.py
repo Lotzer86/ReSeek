@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from typing import List
 from app.database import get_db
 from app.models.models import Watchlist, WatchlistItem
+from app.data.nasdaq100 import NASDAQ_100
 import logging
 
 logger = logging.getLogger(__name__)
@@ -98,3 +99,9 @@ async def remove_from_watchlist(item_id: int, db: Session = Depends(get_db)):
     db.commit()
     
     return {"message": "Item removed from watchlist"}
+
+
+@router.get("/stocks/nasdaq100")
+async def get_nasdaq100():
+    """Get NASDAQ 100 stock list"""
+    return {"stocks": NASDAQ_100}
