@@ -44,11 +44,11 @@ function MentionsList() {
   }
 
   return (
-    <div className="bg-surface rounded-lg border border-border p-4">
-      <h3 className="text-lg font-semibold mb-4">Recent Mentions</h3>
+    <div className="bg-surface rounded-lg border border-border p-5 shadow-card">
+      <h3 className="text-lg font-semibold mb-5">Recent Mentions</h3>
       <div className="space-y-3 max-h-96 overflow-y-auto scrollbar-hide">
         {mentions.map((mention) => (
-          <div key={mention.id} className="bg-card rounded-lg p-3 border border-border">
+          <div key={mention.id} className="bg-card rounded-lg p-3 border border-border shadow-sm hover:shadow-card hover:border-borderLight transition-all">
             <div className="flex items-center gap-2 mb-2">
               <span className={`px-2 py-0.5 text-xs font-mono font-semibold rounded ${getCompanyColor(mention.company)}`}>
                 {mention.company}

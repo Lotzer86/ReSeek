@@ -17,7 +17,7 @@ function EventCard({ event }) {
   return (
     <div
       onClick={() => navigate(`/event/${event.id}`)}
-      className="bg-card rounded-lg border border-border p-4 hover:border-brand/50 hover:shadow-lg hover:scale-[1.02] transition-all cursor-pointer"
+      className="bg-card rounded-lg border border-border p-4 hover:bg-cardHover hover:border-borderLight hover:shadow-card-hover hover:scale-[1.01] transition-all cursor-pointer shadow-card"
     >
       <div className="flex items-start gap-3 mb-3">
         <div className={`w-12 h-12 rounded-lg ${getCompanyColor(event.ticker)} flex items-center justify-center text-white font-bold flex-shrink-0`}>

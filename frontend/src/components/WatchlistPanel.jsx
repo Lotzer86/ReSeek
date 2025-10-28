@@ -13,7 +13,7 @@ function WatchlistPanel({ watchlist = [] }) {
 
   if (!watchlist || watchlist.length === 0) {
     return (
-      <div className="bg-surface rounded-lg border border-border p-4">
+      <div className="bg-surface rounded-lg border border-border p-5 shadow-card">
         <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
           <Star size={18} className="text-brand" />
           Your Watchlist
@@ -24,8 +24,8 @@ function WatchlistPanel({ watchlist = [] }) {
   }
 
   return (
-    <div className="bg-surface rounded-lg border border-border p-4">
-      <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+    <div className="bg-surface rounded-lg border border-border p-5 shadow-card">
+      <h3 className="text-lg font-semibold mb-5 flex items-center gap-2">
         <Star size={18} className="text-brand" />
         Your Watchlist
       </h3>

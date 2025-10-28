@@ -8,7 +8,7 @@ function LiveTickerList() {
 
   if (liveEvents.length === 0) {
     return (
-      <div className="bg-surface rounded-lg border border-border p-4">
+      <div className="bg-surface rounded-lg border border-border p-5 shadow-card">
         <div className="flex items-center gap-2 mb-3">
           <Radio size={16} className="text-red-500 animate-pulse" />
           <h3 className="text-lg font-semibold">Live Right Now</h3>
@@ -19,7 +19,7 @@ function LiveTickerList() {
   }
 
   return (
-    <div className="bg-surface rounded-lg border border-border p-4">
+    <div className="bg-surface rounded-lg border border-border p-5 shadow-card">
       <div className="flex items-center gap-2 mb-4">
         <Radio size={16} className="text-red-500 animate-pulse" />
         <h3 className="text-lg font-semibold">Live Right Now</h3>

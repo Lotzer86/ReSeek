@@ -119,8 +119,8 @@ function CompanyDetail() {
               <div className="space-y-6">
                 {summary ? (
                   <>
-                    <div className="bg-surface rounded-lg border border-border p-6">
-                      <h2 className="text-xl font-semibold mb-4">Key Highlights</h2>
+                    <div className="bg-surface rounded-lg border border-border p-6 shadow-card">
+                      <h2 className="text-xl font-semibold mb-6">Key Highlights</h2>
                       <ul className="space-y-3">
                         {summary.quicktake?.highlights?.map((item, idx) => (
                           <li key={idx} className="flex justify-between items-start gap-4 pb-3 border-b border-border/50 last:border-0">
@@ -135,8 +135,8 @@ function CompanyDetail() {
                       </ul>
                     </div>
 
-                    <div className="bg-surface rounded-lg border border-border p-6">
-                      <h2 className="text-xl font-semibold mb-4">Key Quotes</h2>
+                    <div className="bg-surface rounded-lg border border-border p-6 shadow-card">
+                      <h2 className="text-xl font-semibold mb-6">Key Quotes</h2>
                       <div className="space-y-4">
                         {summary.extractive_quotes?.map((quote, idx) => (
                           <div key={idx} className={`pl-4 py-3 border-l-4 ${getCompanyColor(event.ticker)} bg-card rounded-r-lg`}>
@@ -152,8 +152,8 @@ function CompanyDetail() {
                     </div>
 
                     {summary.guidance_table && Object.keys(summary.guidance_table).length > 0 && (
-                      <div className="bg-surface rounded-lg border border-border p-6">
-                        <h2 className="text-xl font-semibold mb-4">Guidance</h2>
+                      <div className="bg-surface rounded-lg border border-border p-6 shadow-card">
+                        <h2 className="text-xl font-semibold mb-6">Guidance</h2>
                         <div className="space-y-3">
                           {Object.entries(summary.guidance_table).map(([period, metrics]) => (
                             <div key={period} className="bg-card rounded-lg p-4">
@@ -173,7 +173,7 @@ function CompanyDetail() {
                     )}
                   </>
                 ) : (
-                  <div className="bg-surface rounded-lg border border-border p-12 text-center">
+                  <div className="bg-surface rounded-lg border border-border p-12 text-center shadow-card">
                     <p className="text-textMuted">No summary available</p>
                   </div>
                 )}
@@ -184,7 +184,7 @@ function CompanyDetail() {
               <div className="space-y-4">
                 {qaItems.length > 0 ? (
                   qaItems.map((item) => (
-                    <div key={item.id} className="bg-surface rounded-lg border border-border p-6">
+                    <div key={item.id} className="bg-surface rounded-lg border border-border p-6 shadow-card">
                       <div className="flex justify-between items-start mb-4">
                         <div>
                           <div className="font-semibold text-text">{item.analyst_name}</div>
@@ -215,7 +215,7 @@ function CompanyDetail() {
                     </div>
                   ))
                 ) : (
-                  <div className="bg-surface rounded-lg border border-border p-12 text-center">
+                  <div className="bg-surface rounded-lg border border-border p-12 text-center shadow-card">
                     <p className="text-textMuted">No Q&A items available</p>
                   </div>
                 )}
@@ -223,7 +223,7 @@ function CompanyDetail() {
             )}
 
             {activeTab === 'transcript' && (
-              <div className="bg-surface rounded-lg border border-border p-6">
+              <div className="bg-surface rounded-lg border border-border p-6 shadow-card">
                 {transcript ? (
                   <pre className="text-sm text-text whitespace-pre-wrap font-mono leading-relaxed">
                     {transcript.raw_text}
@@ -237,7 +237,7 @@ function CompanyDetail() {
             )}
 
             {activeTab === 'chat' && (
-              <div className="bg-surface rounded-lg border border-border p-12 text-center">
+              <div className="bg-surface rounded-lg border border-border p-12 text-center shadow-card">
                 <p className="text-text text-lg mb-2">Chat feature coming soon</p>
                 <p className="text-textMuted text-sm">Ask questions about this earnings call using AI</p>
               </div>
@@ -245,8 +245,8 @@ function CompanyDetail() {
           </div>
 
           <div className="lg:col-span-1">
-            <div className="bg-surface rounded-lg border border-border p-6 sticky top-24">
-              <h3 className="text-lg font-semibold mb-4">Quick Facts</h3>
+            <div className="bg-surface rounded-lg border border-border p-6 sticky top-24 shadow-card">
+              <h3 className="text-lg font-semibold mb-6">Quick Facts</h3>
               <div className="space-y-4">
                 <div>
                   <div className="flex items-center gap-2 text-textMuted text-sm mb-1">

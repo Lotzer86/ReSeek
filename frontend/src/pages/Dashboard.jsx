@@ -57,8 +57,8 @@ function Dashboard() {
           </div>
 
           <div className="lg:col-span-6 space-y-6">
-            <div className="bg-surface rounded-lg border border-border p-4">
-              <div className="flex items-center justify-between mb-4">
+            <div className="bg-surface rounded-lg border border-border p-6 shadow-card">
+              <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-semibold flex items-center gap-2">
                   <TrendingUp size={20} className="text-brand" />
                   Latest Events
@@ -80,8 +80,8 @@ function Dashboard() {
             </div>
 
             {upcomingEvents.length > 0 && (
-              <div className="bg-surface rounded-lg border border-border p-4">
-                <h2 className="text-xl font-semibold flex items-center gap-2 mb-4">
+              <div className="bg-surface rounded-lg border border-border p-6 shadow-card">
+                <h2 className="text-xl font-semibold flex items-center gap-2 mb-6">
                   <Calendar size={20} className="text-brand" />
                   Upcoming Events
                 </h2>
