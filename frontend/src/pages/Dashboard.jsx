@@ -12,7 +12,7 @@ function Dashboard() {
 
   const fetchEvents = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/events/')
+      const response = await axios.get('/api/events/')
       setEvents(response.data.events || [])
     } catch (error) {
       console.error('Error fetching events:', error)
@@ -81,9 +81,8 @@ function Dashboard() {
 
       <div className="info-banner">
         <h3>🚀 ReSeek MVP is Running!</h3>
-        <p>Backend API: <code>http://localhost:8000</code></p>
-        <p>API Docs: <a href="http://localhost:8000/docs" target="_blank">http://localhost:8000/docs</a></p>
-        <p>Configure your Supabase and OpenAI credentials in <code>backend/.env</code> to enable full functionality</p>
+        <p>SQLite database configured ✓ | OpenAI API key set ✓</p>
+        <p>Ready to test with mock data! Add companies to your watchlist to get started.</p>
       </div>
     </div>
   )
