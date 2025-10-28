@@ -12,12 +12,23 @@ engine = None
 SessionLocal = None
 
 try:
-    engine = create_engine(
-        settings.database_url,
-        pool_pre_ping=True,
-        echo=settings.environment == "development",
-        connect_args={"connect_timeout": 5}
-    )
+    db_url = settings.database_url
+    logger.info(f"Connecting to database: {db_url[:30]}...")
+    
+    if db_url.startswith("sqlite"):
+        engine = create_engine(
+            db_url,
+            connect_args={"check_same_thread": False},
+            echo=settings.environment == "development"
+        )
+    else:
+        engine = create_engine(
+            db_url,
+            pool_pre_ping=True,
+            echo=settings.environment == "development",
+            connect_args={"connect_timeout": 5}
+        )
+    
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     logger.info("Database engine created successfully")
 except Exception as e:
