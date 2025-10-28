@@ -1,9 +1,12 @@
 import { Radio } from 'lucide-react'
+import CompanyLogo from './CompanyLogo'
 
 function LiveTickerList() {
   const liveEvents = [
-    { ticker: 'MSFT', companyName: 'Microsoft', color: 'bg-blue-500' },
-    { ticker: 'GOOGL', companyName: 'Alphabet', color: 'bg-red-500' },
+    { ticker: 'MSFT', companyName: 'Microsoft' },
+    { ticker: 'GOOGL', companyName: 'Alphabet' },
+    { ticker: 'AAPL', companyName: 'Apple' },
+    { ticker: 'NVDA', companyName: 'NVIDIA' },
   ]
 
   if (liveEvents.length === 0) {
@@ -27,11 +30,11 @@ function LiveTickerList() {
       <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
         {liveEvents.map((event) => (
           <div key={event.ticker} className="flex flex-col items-center gap-2 flex-shrink-0">
-            <div className={`w-12 h-12 rounded-full ${event.color} flex items-center justify-center text-white font-bold relative`}>
-              <span className="text-sm">{event.ticker.charAt(0)}</span>
+            <div className="relative">
+              <CompanyLogo ticker={event.ticker} size="lg" className="rounded-full" />
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-surface animate-pulse" />
             </div>
-            <span className="text-xs text-textMuted">{event.ticker}</span>
+            <span className="text-xs font-medium text-textMuted">{event.ticker}</span>
           </div>
         ))}
       </div>

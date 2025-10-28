@@ -5,7 +5,7 @@ import LiveTickerList from '../components/LiveTickerList'
 import EventCard from '../components/EventCard'
 import MentionsList from '../components/MentionsList'
 import WatchlistPanel from '../components/WatchlistPanel'
-import { Calendar, TrendingUp } from 'lucide-react'
+import { Calendar, TrendingUp, FileText, Mic, BarChart3 } from 'lucide-react'
 
 function Dashboard() {
   const [events, setEvents] = useState([])
@@ -42,10 +42,13 @@ function Dashboard() {
 
   const upcomingEvents = events.filter(e => e.event_status === 'upcoming').slice(0, 4)
   const latestEvents = events.filter(e => e.event_status === 'completed').slice(0, 6)
+  const totalEvents = events.length
+  const completedSummaries = events.filter(e => e.has_summary).length
+  const totalTranscripts = events.filter(e => e.has_transcript).length
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen bg-bg">
         <div className="text-textMuted">Loading...</div>
       </div>
     )
@@ -57,6 +60,44 @@ function Dashboard() {
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2 text-text">Dashboard</h1>
           <p className="text-textMuted">AI-powered earnings call analysis</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div className="bg-gradient-to-br from-brand/10 to-brand/5 rounded-lg border border-brand/20 p-5 shadow-card">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-textMuted mb-1">Total Events</p>
+                <p className="text-3xl font-bold text-text">{totalEvents}</p>
+              </div>
+              <div className="bg-brand/20 p-3 rounded-lg">
+                <BarChart3 size={24} className="text-brand" />
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-gradient-to-br from-blue-500/10 to-blue-500/5 rounded-lg border border-blue-500/20 p-5 shadow-card">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-textMuted mb-1">AI Summaries</p>
+                <p className="text-3xl font-bold text-text">{completedSummaries}</p>
+              </div>
+              <div className="bg-blue-500/20 p-3 rounded-lg">
+                <FileText size={24} className="text-blue-400" />
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-gradient-to-br from-purple-500/10 to-purple-500/5 rounded-lg border border-purple-500/20 p-5 shadow-card">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-textMuted mb-1">Transcripts</p>
+                <p className="text-3xl font-bold text-text">{totalTranscripts}</p>
+              </div>
+              <div className="bg-purple-500/20 p-3 rounded-lg">
+                <Mic size={24} className="text-purple-400" />
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
