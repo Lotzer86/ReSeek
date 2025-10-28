@@ -45,7 +45,7 @@ async def seed_database():
             print(f"   ✓ Added {company['ticker']} - {company['name']}")
         db.commit()
         
-        print("\n4. Generating mock earnings calls...")
+        print("\n4. Generating mock earnings calls (completed)...")
         events_created = []
         
         for i, company in enumerate(companies):
@@ -55,7 +55,7 @@ async def seed_database():
             transcript_id = f"mock_{company['ticker']}_{datetime.now().strftime('%Y%m%d')}"
             transcript_data = await provider.fetch_transcript(transcript_id)
             
-            # Create event
+            # Create completed event
             event_date = datetime.now() - timedelta(days=i*7)  # Stagger events
             event = Event(
                 ticker=company["ticker"],
@@ -193,6 +193,38 @@ async def seed_database():
                 db.add(qa_item)
             db.commit()
             print(f"      ✓ Created {len(qa_items_data)} Q&A items")
+        
+        # Add upcoming events
+        print("\n5. Generating upcoming earnings calls...")
+        upcoming_companies = [
+            {"ticker": "NVDA", "name": "NVIDIA Corporation", "days_ahead": 3},
+            {"ticker": "TSLA", "name": "Tesla Inc.", "days_ahead": 5},
+            {"ticker": "META", "name": "Meta Platforms Inc.", "days_ahead": 7},
+            {"ticker": "NFLX", "name": "Netflix Inc.", "days_ahead": 10},
+            {"ticker": "AMD", "name": "Advanced Micro Devices Inc.", "days_ahead": 12},
+            {"ticker": "INTC", "name": "Intel Corporation", "days_ahead": 14},
+            {"ticker": "ADBE", "name": "Adobe Inc.", "days_ahead": 17},
+            {"ticker": "CSCO", "name": "Cisco Systems Inc.", "days_ahead": 21},
+        ]
+        
+        upcoming_events_created = []
+        for upcoming in upcoming_companies:
+            event_date = datetime.now() + timedelta(days=upcoming["days_ahead"])
+            upcoming_event = Event(
+                ticker=upcoming["ticker"],
+                company_name=upcoming["name"],
+                event_type="EARNINGS_CALL",
+                event_status="UPCOMING",
+                event_date=event_date,
+                quarter="Q4",
+                fiscal_year=2024,
+                provider="mock",
+                provider_event_id=f"upcoming_{upcoming['ticker']}_{event_date.strftime('%Y%m%d')}"
+            )
+            db.add(upcoming_event)
+            db.commit()
+            upcoming_events_created.append(upcoming_event)
+            print(f"   ✓ {upcoming['ticker']} - {event_date.strftime('%b %d, %Y')} (in {upcoming['days_ahead']} days)")
             
         print("\n" + "=" * 70)
         print("✅ Database seeding complete!")
@@ -200,10 +232,11 @@ async def seed_database():
         print(f"\nCreated:")
         print(f"  • 1 test user (demo@reseek.com)")
         print(f"  • 1 watchlist with {len(companies)} companies")
-        print(f"  • {len(events_created)} earnings call events")
+        print(f"  • {len(events_created)} completed earnings calls")
         print(f"  • {len(events_created)} transcripts with chunks")
         print(f"  • {len(events_created)} AI-generated summaries")
         print(f"  • {len(events_created) * 3} Q&A mappings")
+        print(f"  • {len(upcoming_events_created)} upcoming earnings calls")
         print(f"\n🚀 Refresh your dashboard to see the data!")
         print("=" * 70)
         
